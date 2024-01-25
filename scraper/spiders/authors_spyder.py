@@ -1,28 +1,24 @@
 from urllib.parse import urljoin
 import scrapy
-
-from quotesapp.models import Author
 from scraper.items import AuthorItem
 
 
 class AuthorsSpyder(scrapy.Spider):
     name = "authors_spyder"
     allowed_domains = ["quotes.toscrape.com"]
-    start_urls = ["https://quotes.toscrape.com"]
+    start_urls = ["http://quotes.toscrape.com"]
 
     def parse(self, response: scrapy.http.Response) -> None:
         author_links = self.author_links(response)
         for author_link in author_links:
             if author_link:
-                full_url = urljoin(self.start_urls[0], author_link)
+                full_url = f"{self.start_urls[0]}{author_link}/"
                 yield scrapy.Request(url=full_url, callback=self.parse_author)
 
         next_link = self.next_link(response)
         if next_link:
             full_next_url = urljoin(self.start_urls[0], next_link)
             yield scrapy.Request(url=full_next_url, callback=self.parse)
-
-        Author.objects.values('fullname').distinct()
 
     def author_links(self, response: scrapy.http.Response) -> list[str]:
         author_links = response.xpath(

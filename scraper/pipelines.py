@@ -2,12 +2,24 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-from asgiref.sync import sync_to_async
 # useful for handling different item types with a single interface
-from itemadapter import ItemAdapter
+from quotesapp.models import Quote, Author, Tag
+from scraper.items import QuoteItem, AuthorItem
 
 
-class TheodoTeamPipeline(object):
-    async def process_item(self, item, spider):
-        await sync_to_async(item.save)()
+class TheodoTeamPipeline:
+
+    def process_item(self, item, spider):
+        if isinstance(item, QuoteItem):
+            author = Author.objects.filter(fullname=item['author'])
+
+            quote = Quote(content=item['content'], author=author.first())
+            quote.save()
+
+            tags = [Tag.objects.get_or_create(name=tag)[0] for tag in item['tags']]
+            quote.tags.set(tags)
+            quote.save()
+        elif isinstance(item, AuthorItem):
+            Author.objects.get_or_create(fullname=item['fullname'], born_date=item["born_date"],
+                                         born_location=item["born_location"], content=item["content"])
         return item

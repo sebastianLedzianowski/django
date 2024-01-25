@@ -17,9 +17,9 @@ class Tag(models.Model):
         return self.name
 
 class Quote(models.Model):
-    content = models.TextField()
-    tags = models.ManyToManyField(Tag)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    tags = models.ManyToManyField(Tag)
+    content = models.TextField()
 
     def __str__(self):
         return self.content

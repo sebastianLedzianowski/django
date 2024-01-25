@@ -33,10 +33,10 @@ class QuotesSpider(scrapy.Spider):
 
             yield quote_item
 
-        # next_link = self.next_link(response)
-        # if next_link:
-        #     full_next_url = urljoin(self.start_urls[0], next_link)
-        #     yield scrapy.Request(url=full_next_url, callback=self.parse)
+        next_link = self.next_link(response)
+        if next_link:
+            full_next_url = urljoin(self.start_urls[0], next_link)
+            yield scrapy.Request(url=full_next_url, callback=self.parse)
 
     def next_link(self, response: scrapy.http.Response) -> str:
         next_link = response.xpath("//li[@class='next']/a/@href").get()
