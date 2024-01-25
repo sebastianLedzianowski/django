@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-4">
+
+    <div class="row">
+      <div class="col-md-8">
+        <h3>Quotes related to the tag "{{ tag.name }}"</h3>
+        {% for quote in quotes %}
+          <div class="card mb-3">
+            <div class="card-body">
+              <p class="card-text">{{ quote.content }}</p>
+                <p class="card-text">Author: <a href="{% url 'author_detail' pk=quote.author.id %}">{{ quote.author.fullname }}</a></p>
+                <p class="card-text">Tags:
+                    {% for tag in quote.tags.all %}
+                    <a href="{% url 'tag_detail' tag_name=tag.name %}">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %}
+                    {% endfor %}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+        <div class="col-md-4">
+            <h2>Top Ten tags</h2>
+            {% for tag in top_tags %}
+                <span class="tag-item">
+                    <a class="tag" href="{% url 'tag_detail' tag.name %}">{{ tag.name }}</a>
+                </span>
+            {% endfor %}
+        </div>
+    </div>
+  </div>
+{% endblock %}

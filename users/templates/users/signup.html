@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="center">
+        <form method="post" class="card" action="{% url 'users:signup' %}" novalidate>
+            {% csrf_token %}
+            <h2 class="text-center">Sign Up</h2>
+
+            {% for field in form %}
+                <div>
+                    <label>{{ field.label_tag }}
+                        {{ field }}
+                    </label>
+                    <span>{{ field.errors }}</span>
+                </div>
+                <br>
+            {% endfor %}
+
+            <div class="grid">
+                <button type="submit" class="btn btn-primary full-width">Submit</button>
+                <button type="reset" class="btn btn-secondary full-width">Reset</button>
+            </div>
+        </form>
+
+        <hr>
+
+        <p class="text-center">Already have an account? <a href="{% url 'users:login' %}">Log In</a></p>
+    </div>
+{% endblock %}

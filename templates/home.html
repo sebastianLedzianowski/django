@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h2 class="text-center">All Quotes</h2>
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                {% for quote in quotes %}
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <p class="card-text">{{ quote.content }}</p>
+                            <p class="card-text">Author: <a href="{% url 'author_detail' pk=quote.author.id %}">{{ quote.author.fullname }}</a></p>
+                            <p class="card-text">Tags: {% for tag in quote.tags.all %}<a href="{% url 'tag_detail' tag_name=tag.name %}">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %} {% endfor %}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="pagination mt-4">
+                <span class="step-links">
+                    {% if quotes.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ quotes.previous_page_number }}">previous</a>{% endif %}
+                    <span class="current">Page {{ quotes.number }} of {{ quotes.paginator.num_pages }}.</span>{% if quotes.has_next %}
+                    <a href="?page={{ quotes.next_page_number }}">next</a>
+                    <a href="?page={{ quotes.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <h2>Top Ten tags</h2>
+            {% for tag in top_tags %}
+            <span class="tag-item">
+                <a class="tag" href="{% url 'tag_detail' tag.name %}">{{ tag.name }}</a>
+            </span>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

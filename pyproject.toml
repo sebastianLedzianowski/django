@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "django-quotes"
+version = "0.1.0"
+description = ""
+authors = ["sebastianLedzianowski <136706736+sebastianLedzianowski@users.noreply.github.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^5.0.1"
+pillow = "^10.2.0"
+psycopg2-binary = "^2.9.9"
+scrapy = "^2.11.0"
+scrapy-djangoitem = "^1.1.1"
+asgiref = "^3.7.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
