@@ -16,6 +16,10 @@
                             <p class="card-text">Author: <a href="{% url 'author_detail' pk=quote.author.id %}">{{ quote.author.fullname }}</a></p>
                             <p class="card-text">Tags: {% for tag in quote.tags.all %}<a href="{% url 'tag_detail' tag_name=tag.name %}">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %} {% endfor %}</p>
                         </div>
+                          <div  class="task-controls">
+                              <a href="{%url 'quote_delete' quote.id %}"><i class="bi bi-trash"></i> </a>
+                              <a href="{%url 'quote_update' quote.id %}"><i class="bi bi-pencil-square"></i></a>
+                          </div>
                     </div>
                 </div>
                 {% endfor %}

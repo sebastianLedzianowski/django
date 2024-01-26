@@ -22,14 +22,11 @@ class QuotesSpider(scrapy.Spider):
             quote_item = QuoteItem()
             quote_item["author"] = author_instance
             quote_item["content"] = content
-            quote_item.setdefault("tags", set())
-            quote_item.save()
+            quote_item["tags"] = set()
 
             for tag in tags:
                 quote_tags_obj, created = Tag.objects.get_or_create(name=tag)
-                quote_item.save()
                 quote_item["tags"].add(quote_tags_obj)
-                quote_item.save()
 
             yield quote_item
 

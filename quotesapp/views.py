@@ -2,6 +2,9 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Count
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic import DeleteView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Tag, Author, Quote
 from .forms import TagForm, AuthorForm, QuoteForm
 from django.contrib import messages
@@ -80,6 +83,27 @@ def add_quote(request):
 
     return render(request, 'quotesapp/quote_form.html', {'form': form, 'tags': tags, 'authors': authors})
 
+
+
+
+class QuoteDelete(LoginRequiredMixin, DeleteView):
+    model = Quote
+    template_name = 'quotesapp/quote_delete.html'
+    success_url = reverse_lazy('home')
+
+    def form_valid(self, form):
+        messages.success(self.request, "The quote was deleted successfully.")
+        return super(QuoteDelete, self).form_valid(form)
+
+class QuoteUpdate(LoginRequiredMixin, UpdateView):
+    model = Quote
+    fields = ['author', 'tags', 'content']
+    template_name = 'quotesapp/quote_update.html'
+    success_url = reverse_lazy('home')
+
+    def form_valid(self, form):
+        messages.success(self.request, "The quote was updated successfully.")
+        return super(QuoteUpdate, self).form_valid(form)
 
 def home(request):
     quotes_list = Quote.objects.all()

@@ -8,4 +8,6 @@ urlpatterns = [
     path('add_quote/', views.add_quote, name='add_quote'),
     path('tag/<tag_name>/', views.tag_detail, name='tag_detail'),
     path('author/<int:pk>/', views.author_detail, name='author_detail'),
+    path('delete/<int:pk>/', views.QuoteDelete.as_view(), name='quote_delete'),
+    path('update/<int:pk>/', views.QuoteUpdate.as_view(), name='quote_update'),
 ]
