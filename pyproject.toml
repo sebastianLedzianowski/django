@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "django-quotes"
+name = "quotes"
 version = "0.1.0"
 description = ""
 authors = ["sebastianLedzianowski <136706736+sebastianLedzianowski@users.noreply.github.com>"]
