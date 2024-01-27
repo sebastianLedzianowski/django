@@ -95,6 +95,7 @@ class QuoteDelete(LoginRequiredMixin, DeleteView):
         messages.success(self.request, "The quote was deleted successfully.")
         return super(QuoteDelete, self).form_valid(form)
 
+
 class QuoteUpdate(LoginRequiredMixin, UpdateView):
     model = Quote
     fields = ['author', 'tags', 'content']
@@ -104,6 +105,7 @@ class QuoteUpdate(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         messages.success(self.request, "The quote was updated successfully.")
         return super(QuoteUpdate, self).form_valid(form)
+
 
 def home(request):
     quotes_list = Quote.objects.all()

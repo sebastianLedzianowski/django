@@ -13,21 +13,21 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth import login, authenticate
 
-from django.core.mail import EmailMessage
+from django.core.mail import send_mail
 
 def send_reset_email(user, reset_url):
     subject = 'Password Reset'
     message = f'Click the link below to reset your password:\n\n{reset_url}'
-    from_email = 'test.python.3.group@gmail.com'
+    from_email = 'password.reset@localhost.com'
     recipient_list = [user.email]
 
-    email = EmailMessage(
-        subject=subject,
-        body=message,
-        from_email=from_email,
-        to=recipient_list,
+    send_mail(
+        subject,
+        message,
+        from_email,
+        recipient_list,
+        fail_silently=False,
     )
-    email.send()
 
 def custom_password_reset(request):
     if request.method == 'POST':
