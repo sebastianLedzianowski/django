@@ -26,7 +26,8 @@ def add_tag(request):
 def tag_detail(request, tag_name):
     tag = get_object_or_404(Tag, name=tag_name)
     quotes_with_tag = tag.quote_set.all()
-    context = {'tag': tag, 'quotes': quotes_with_tag}
+    top_tags = Tag.objects.annotate(quote_count=Count('quote')).order_by('-quote_count')[:10]
+    context = {'tag': tag, 'quotes': quotes_with_tag, 'top_tags': top_tags}
     return render(request, 'quotesapp/tag_detail.html', context)
 
 def top_tags(request):

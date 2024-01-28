@@ -1,10 +1,52 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class="container mt-4">
+<style>
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .col-md-9 {
+        flex: 0 0 75%;
+    }
+
+    .col {
+        margin-bottom: 15px;
+    }
+    .card {
+        width: 100%;
+    }
+
+    .col-md-3 {
+        flex: 0 0 25%;
+        text-align: right;
+    }
+
+    .tag-item {
+        display: block;
+        margin-bottom: 7px;
+    }
+
+    .task-controls {
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+    }
+    .tag-item {
+      margin-bottom: 1rem;
+    }
+
+</style>
+
+  <div class="container">
 
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-9">
         <h3>Quotes related to the tag "{{ tag.name }}"</h3>
         {% for quote in quotes %}
           <div class="card mb-3">
@@ -20,12 +62,12 @@
         {% endfor %}
       </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <h2>Top Ten tags</h2>
             {% for tag in top_tags %}
-                <span class="tag-item">
-                    <a class="tag" href="{% url 'tag_detail' tag.name %}">{{ tag.name }}</a>
-                </span>
+            <span class="tag-item">
+                <a class="tag" href="{% url 'tag_detail' tag.name %}">{{ tag.name }}</a>
+            </span>
             {% endfor %}
         </div>
     </div>

@@ -3,14 +3,54 @@
 {% load static %}
 
 {% block content %}
+<style>
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .col-md-9 {
+        flex: 0 0 75%;
+    }
+
+    .col {
+        margin-bottom: 17px;
+    }
+    .card {
+        width: 130%;
+    }
+
+    .col-md-3 {
+        flex: 0 0 25%;
+        text-align: right;
+    }
+
+    .tag-item {
+        display: block;
+        margin-bottom: 7px;
+    }
+
+    .task-controls {
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+    }
+    .tag-item {
+      margin-bottom: 1rem;
+    }
+
+</style>
 <div class="container">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-9">
             <h2 class="text-center">All Quotes</h2>
-            <div class="row row-cols-1 row-cols-md-2 g-4">
-                {% for quote in quotes %}
+            {% for quote in quotes %}
                 <div class="col">
-                    <div class="card h-100">
+                    <div class="card mb-3">
                         <div class="card-body">
                             <p class="card-text">{{ quote.content }}</p>
                             <p class="card-text">Author: <a href="{% url 'author_detail' pk=quote.author.id %}">{{ quote.author.fullname }}</a></p>
@@ -25,7 +65,6 @@
                     </div>
                 </div>
                 {% endfor %}
-            </div>
             <div class="pagination mt-4">
                 <span class="step-links">
                     {% if quotes.has_previous %}
@@ -37,8 +76,9 @@
                     {% endif %}
                 </span>
             </div>
+            </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <h2>Top Ten tags</h2>
             {% for tag in top_tags %}
             <span class="tag-item">
