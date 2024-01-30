@@ -30,10 +30,6 @@ def tag_detail(request, tag_name):
     context = {'tag': tag, 'quotes': quotes_with_tag, 'top_tags': top_tags}
     return render(request, 'quotesapp/tag_detail.html', context)
 
-def top_tags(request):
-    top_tags = Tag.objects.all().order_by('-quote__count')[:10]
-    return render(request, {'top_tags': top_tags})
-
 
 @login_required
 def add_author(request):

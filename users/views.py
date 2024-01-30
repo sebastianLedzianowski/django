@@ -79,7 +79,7 @@ def custom_password_reset_confirm(request, uidb64, token):
         messages.error(request, 'Invalid password reset link.')
         return redirect('password_reset')
 
-def signupuser(request):
+def sign_up_user(request):
     if request.user.is_authenticated:
         return redirect(to='home')
 
@@ -94,7 +94,7 @@ def signupuser(request):
     return render(request, 'users/signup.html', context={"form": RegisterForm()})
 
 
-def loginuser(request):
+def login_user(request):
     if request.user.is_authenticated:
         return redirect('home')
 
@@ -111,7 +111,7 @@ def loginuser(request):
 
 
 @login_required
-def logoutuser(request):
+def log_out_user(request):
     logout(request)
     return redirect(to='home')
 
