@@ -49,9 +49,24 @@ poetry install
 To run this project, you will need to add the following environment variables to your `.env` file.
 
 ```bash
-#E-mail settings
+# E-mail settings
+EMAIL_BACKEND=
+EMAIL_HOST=
 EMAIL_HOST_USER=
 EMAIL_HOST_PASSWORD=
+EMAIL_PORT=
+EMAIL_USE_TLS=
+EMAIL_USE_SSL=
+# Settings Django
+SECRET_KEY=
+DEBUG=
+# PostgreSQL
+ENGINE=
+NAME=
+USER=
+PASSWORD=
+HOST=
+PORT=
 ```
 ---
 
@@ -60,11 +75,14 @@ EMAIL_HOST_PASSWORD=
 ---
 ## Usage 🚀
 
-1.Let's run a Docker container to create a PostgreSQL server using the following command:
+1.This is where you should connect to the database. The project was adapted to the PostgreSQL database and created locally using Docker.
 
+---
+An example command to enable a PostgreSQL database using Docker.
 ```bash
-docker run --name quotes-postgres -p 5432:5432 -e POSTGRES_PASSWORD=567234 -d postgres
+docker run --name db-postgres -p 5432:5432 -e POSTGRES_PASSWORD=12345 -d postgres
 ```
+---
 
 2.Now, let's create a superuser, but first, we need to apply the initial migration:
 
