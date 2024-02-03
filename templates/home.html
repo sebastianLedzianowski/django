@@ -43,28 +43,31 @@
       margin-bottom: 1rem;
     }
 
+
+
 </style>
 <div class="container">
     <div class="row">
         <div class="col-md-9">
             <h2 class="text-center">All Quotes</h2>
             {% for quote in quotes %}
-                <div class="col">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <p class="card-text">{{ quote.content }}</p>
-                            <p class="card-text">Author: <a href="{% url 'author_detail' pk=quote.author.id %}">{{ quote.author.fullname }}</a></p>
-                            <p class="card-text">Tags: {% for tag in quote.tags.all %}<a href="{% url 'tag_detail' tag_name=tag.name %}">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %} {% endfor %}</p>
-                        </div>
-                         {% if request.user.is_authenticated %}
-                          <div  class="task-controls">
-                              <a href="{%url 'quote_delete' quote.id %}"><i class="bi bi-trash"></i> </a>
-                              <a href="{%url 'quote_update' quote.id %}"><i class="bi bi-pencil-square"></i></a>
-                          </div>
-                        {% endif %}
+            <div class="col">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <p class="card-text">{{ quote.content }}</p>
+                        <p class="card-text">Author: <a href="{% url 'author_detail' pk=quote.author.id %}">{{ quote.author.fullname }}</a></p>
+                        <p class="card-text">Tags: {% for tag in quote.tags.all %}<a
+                                href="{% url 'tag_detail' tag_name=tag.name %}">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %} {% endfor %}</p>
                     </div>
+                    {% if request.user.is_authenticated %}
+                    <div class="task-controls">
+                        <a href="{%url 'quote_delete' quote.id %}"><i class="bi bi-trash"></i> </a>
+                        <a href="{%url 'quote_update' quote.id %}"><i class="bi bi-pencil-square"></i></a>
+                    </div>
+                    {% endif %}
                 </div>
-                {% endfor %}
+            </div>
+            {% endfor %}
             <div class="pagination mt-4">
                 <span class="step-links">
                     {% if quotes.has_previous %}
@@ -76,16 +79,16 @@
                     {% endif %}
                 </span>
             </div>
-            </div>
         </div>
-        <div class="col-md-3">
-            <h2>Top Ten tags</h2>
-            {% for tag in top_tags %}
-            <span class="tag-item">
+            <div class="col-md-3">
+        <h2>Top Ten tags</h2>
+        {% for tag in top_tags %}
+        <span class="tag-item">
                 <a class="tag" href="{% url 'tag_detail' tag.name %}">{{ tag.name }}</a>
             </span>
-            {% endfor %}
-        </div>
+        {% endfor %}
     </div>
+
+</div>
 </div>
 {% endblock %}
