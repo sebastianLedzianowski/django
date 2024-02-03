@@ -26,7 +26,7 @@ var/
 .installed.cfg
 *.egg
 *.json
-.env
+quotes/.env
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -80,7 +80,7 @@ target/
 celerybeat-schedule
 
 # dotenv
-.env
+quotes/.env
 
 # virtualenv
 venv/

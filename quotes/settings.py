@@ -2,14 +2,17 @@ import os
 from pathlib import Path
 import environ
 
-env = environ.Env(DEBUG=(bool, True), TESSERACT_CMD=(str, ""), SECRET_KEY=(str, ))
+# Initialise environment variables
+env = environ.Env(DEBUG=(bool, True), EMAIL_USE_TLS_TRUE=(bool, True), EMAIL_USE_SSL_FALSE=(bool, True))
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-environ.Env.read_env(os.path.join(BASE_DIR.parent, '../.env'))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
+
+
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
@@ -21,6 +24,11 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+# SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
+#
+# TEMPLATE_DIRS = (
+#     os.path.join(SETTINGS_PATH, 'templates'),
+# )
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -29,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # My app
+
     'users',
     'quotesapp',
 ]
@@ -70,12 +81,12 @@ WSGI_APPLICATION = 'quotes.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': env('ENGINE'),
-        'NAME': env('NAME'),
-        'USER': env('USER'),
-        'PASSWORD': env('SECRET_KEY'),
-        'HOST': env('HOST'),
-        'PORT': env('PORT'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': env('NAME_DB'),
+        'USER': env('USER_DB'),
+        'PASSWORD': env('PASSWORD_DB'),
+        'HOST': env('HOST_DB'),
+        'PORT': env('PORT_DB'),
     }
 }
 
