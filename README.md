@@ -22,13 +22,13 @@ Make sure you have the following installed on your machine:
 1.Clone the repository:
 
 ```bash
-git clone https://github.com/sebastianLedzianowski/django.git  
+git clone https://github.com/sebastianLedzianowski/website-replica.git
 ```
 
 2.Navigate to the Project Directory:
 
 ```bash
-cd django
+cd website-replica
 ```
 
 3.Set up a virtual environment and activate it (optional but recommended):
@@ -60,7 +60,7 @@ EMAIL_USE_SSL=
 # Settings Django
 SECRET_KEY=
 DEBUG=
-# PostgreSQL
+# PostgresSQL
 ENGINE=
 NAME=
 USER=
@@ -75,10 +75,10 @@ PORT=
 ---
 ## Usage 🚀
 
-1.This is where you should connect to the database. The project was adapted to the PostgreSQL database and created locally using Docker.
+1.This is where you should connect to the database. The project was adapted to the PostgresSQL database and created locally using Docker.
 
 ---
-An example command to enable a PostgreSQL database using Docker.
+An example command to enable a PostgresSQL database using Docker.
 ```bash
 docker run --name db-postgres -p 5432:5432 -e POSTGRES_PASSWORD=12345 -d postgres
 ```
@@ -122,6 +122,7 @@ python manage.py runserver
 - You can also go to the home page: http://127.0.0.1:8000
  
 - log in or register a new user there.
+  
 ## Created 👤
 - [Sebastian Ledzianowski](https://github.com/sebastianLedzianowski)
 
